@@ -1,0 +1,83 @@
+{
+	"connectorName": "AzureBlobFSSample",
+	"dataType": "Binary",
+	"connectionSettings": [{
+		"name": "connectionString",
+		"type": "string",
+		"required": true
+	}],
+	"sensitiveFields": ["connectionString"],
+	"readSettings": [{
+		"name": "myFolderPath",
+		"type": "string",
+		"required": true
+	}, {
+		"name": "myFileName",
+		"type": "string",
+		"required": true
+	}, {
+		"name": "myMaxConcurrentConnection",
+		"type": "double",
+		"required": true
+	}],
+	"writeSettings": [{
+		"name": "myFolderPath",
+		"type": "string",
+		"required": true
+	}, {
+		"name": "myFileName",
+		"type": "string",
+		"required": true
+	}, {
+		"name": "myObjectTest",
+		"type": "object",
+		"required": true
+	}],
+	"adfAppModelConfiguration": {
+		"displayName": "Sample Azure Blob FS",
+		"linkedService": {
+			"type": "MySampleAzureBlob"
+		},
+		"location": {
+			"type": "MySampleAzureBlobLocation",
+			"properties": ["myFolderPath", "myFileName"],
+			"uiControls": [{
+				"controlType": "FileLocation",
+				"controlSettings": {
+					"properties": [{
+						"controlType": "TextBox",
+						"bind": "myFolderPath"
+					}, {
+						"controlType": "TextBox",
+						"bind": "myFileName"
+					}],
+					"fileNameProperty": "myFileName"
+				}
+			}]
+		},
+		"storeReadSettings": {
+			"type": "MySampleAzureBlobStoreReadSettings",
+			"properties": ["myMaxConcurrentConnection"],
+			"uiControls": [{
+				"bind": "myMaxConcurrentConnection",
+				"controlType": "TextBox",
+				"displayName": "Max concurrent connection",
+				"description": "The description of the URL",
+				"defaultValue": "https://xxx"
+			}]
+		},
+		"storeWriteSettings": {
+			"type": "MySampleAzureBlobStoreWriteSettings",
+			"properties": ["myObjectTest"],
+			"uiControls": [{
+				"bind": "myObjectTest",
+				"controlType": "ArrayContainer",
+				"controlSettings": {
+					"itemUiControl": {
+						"dataType": "double"
+					}
+				}
+			}]
+		}
+	}
+}
